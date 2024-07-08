@@ -10,7 +10,13 @@ async function main() {
 	   app.use(bodyParser.json({ limit: '50mb' })); // Adjust the limit as needed
 	   app.post('/sendUID', async (req, res) => {
 		   const { UID } = req.body;
-		   console.log('Received UID:', UID); // Log the UID
+		   console.log("length              ")
+		   console.log(UID.length); // Log the UID
+		   console.log("type              ")
+		   console.log(UID.type); // Log the UID
+		   console.log("req.body              ")
+		   console.log(req.body); // Log the UID
+		   console.log("              ")
 		   res.send('Received UID: ' + UID); // Send the UID back
 	   });
 	   app.get('/getUID', async (req, res) => {
