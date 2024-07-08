@@ -19,8 +19,8 @@ let dbClient;
 // app.use(cors());
 
 //Fuzzy Search required for Movie Title search on ScoutMap
-async function findMovieTitleFuzzy(curTitle) {
-  const curDB = dbClient.db("Location-db");
+async function findMovieTitleFuzzy(client, curTitle) {
+  const curDB = client.db("Location-db");
   const curCollection = curDB.collection("Locations");
 
   const titleAgg = [
@@ -892,7 +892,7 @@ async function main() {
       //HTTP request handler for movie title fuzzy search
       app.post("/fetch-movie-fuzzy", async (req, res) => {
         const { scoutTitle } = req.body;
-        let resList = await findMovieTitleFuzzy(scoutTitle)
+        let resList = await findMovieTitleFuzzy(client, scoutTitle)
         res.json({ type: "fetch-movie-fuzzy", data: resList });
       });
 
