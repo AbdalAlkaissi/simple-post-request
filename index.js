@@ -904,8 +904,8 @@ async function main() {
       // });
       //HTTP request handler for movie title exact search
       app.post("/fetch-movie", async (req, res) => {
-        const { movieTitle } = req.body;
-        let resList = await findMovieTitle(client, { Title: movieTitle });
+        const { scoutTitle } = req.body;
+        let resList = await findMovieTitle(client, { Title: scoutTitle });
         res.json({ type: "fetch-movie", data: resList });
       });
   
