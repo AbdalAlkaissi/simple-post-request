@@ -876,31 +876,61 @@ async function main() {
         // console.log('UID:', UID);
         await getPFP(UID, client, res);
       });
+
+
+
+
+
+
+
+      // app.get("/fetch-movie-fuzzy/:movieTitle", (req, res) => {
+      //   let resList = findMovieTitleFuzzy(req.params.movieTitle);
+      //   resList.then((data) => {
+      //     res.status(200).send(data);
+      //   });
+      // });
       //HTTP request handler for movie title fuzzy search
-      app.get("/fetch-movie-fuzzy/:movieTitle", (req, res) => {
-        let resList = findMovieTitleFuzzy(req.params.movieTitle);
-        resList.then((data) => {
-          res.status(200).send(data);
-        });
+      app.post("/fetch-movie-fuzzy", async (req, res) => {
+        const { scoutTitle } = req.body;
+        let resList = await findMovieTitleFuzzy(scoutTitle)
+        res.json({ type: "fetch-movie-fuzzy", data: resList });
       });
 
+      // app.get("/fetch-movie/:movieTitle", (req, res) => {
+      //   let resList = findMovieTitle(client, { Title: req.params.movieTitle });
+      //   resList.then((data) => {
+      //     res.status(200).send(data);
+      //   });
+      // });
       //HTTP request handler for movie title exact search
-      app.get("/fetch-movie/:movieTitle", (req, res) => {
-        let resList = findMovieTitle(client, { Title: req.params.movieTitle });
-        resList.then((data) => {
-          res.status(200).send(data);
-        });
+      app.post("/fetch-movie", async (req, res) => {
+        const { movieTitle } = req.body;
+        let resList = await findMovieTitle(movieTitle)
+        res.json({ type: "fetch-movie", data: resList });
+      });
+  
+      // app.get("/fetch-location/:movieLocation", (req, res) => {
+      //   let resList = findMovieLocation(client, {
+      //     Location: req.params.movieLocation,
+      //   });
+      //   resList.then((data) => {
+      //     res.status(200).send(data);
+      //   });
+      // });
+      //HTTP request handler for movie location exact search
+      app.post("/fetch-location", async (req, res) => {
+        const { scoutLocation } = req.body;
+        let resList = await findMovieLocation(scoutLocation)
+        res.json({ type: "fetch-location", data: resList });
       });
 
-      //HTTP request handler for movie location exact search
-      app.get("/fetch-location/:movieLocation", (req, res) => {
-        let resList = findMovieLocation(client, {
-          Location: req.params.movieLocation,
-        });
-        resList.then((data) => {
-          res.status(200).send(data);
-        });
-      });
+
+
+
+
+
+
+
 
       const port = process.env.PORT || 3000;
       app.listen(port, () => {
