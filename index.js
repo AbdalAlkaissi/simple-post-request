@@ -905,7 +905,7 @@ async function main() {
       //HTTP request handler for movie title exact search
       app.post("/fetch-movie", async (req, res) => {
         const { movieTitle } = req.body;
-        let resList = await findMovieTitle(movieTitle)
+        let resList = await findMovieTitle(client, { Title: movieTitle });
         res.json({ type: "fetch-movie", data: resList });
       });
   
@@ -920,7 +920,9 @@ async function main() {
       //HTTP request handler for movie location exact search
       app.post("/fetch-location", async (req, res) => {
         const { scoutLocation } = req.body;
-        let resList = await findMovieLocation(scoutLocation)
+        let resList = await findMovieLocation(client, {
+          Location: scoutLocation,
+        });
         res.json({ type: "fetch-location", data: resList });
       });
 
